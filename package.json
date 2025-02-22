@@ -6,12 +6,16 @@
     "build": "react-router build",
     "deploy": "npm run build && wrangler deploy",
     "dev": "react-router dev",
-    "start": "wrangler dev",
+    "start:dev": "wrangler dev --env dev",
+    "start:prod": "wrangler dev --env prod",
     "typecheck": "react-router typegen && tsc -b"
   },
   "dependencies": {
+    "@hono/vite-dev-server": "^0.18.1",
     "@react-router/node": "^7.2.0",
     "@react-router/serve": "^7.2.0",
+    "hono": "^4.7.2",
+    "hono-react-router-adapter": "^0.6.2",
     "isbot": "^5.1.17",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

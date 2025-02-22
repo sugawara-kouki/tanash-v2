@@ -1,0 +1,10 @@
+node_modules
+dist
+build
+*.min.ts
+*.min.tsx
+*.min.js
+*.min.jsx
+*.min.json
+*.min.css
+*.min.html

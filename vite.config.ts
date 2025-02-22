@@ -1,25 +1,26 @@
-import { reactRouter } from "@react-router/dev/vite";
-import { cloudflareDevProxy } from "@react-router/dev/vite/cloudflare";
-import tailwindcss from "@tailwindcss/vite";
-import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { reactRouter } from '@react-router/dev/vite';
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import adapter from '@hono/vite-dev-server/cloudflare';
+import { getLoadContext } from './load-context';
 
-export default defineConfig(({ isSsrBuild }) => ({
-  build: {
-    rollupOptions: isSsrBuild
-      ? {
-          input: "./workers/app.ts",
-        }
-      : undefined,
-  },
+import serverAdapter from 'hono-react-router-adapter/vite';
+
+export default defineConfig((_) => ({
   plugins: [
-    cloudflareDevProxy({
-      getLoadContext({ context }) {
-        return { cloudflare: context.cloudflare };
-      },
-    }),
     tailwindcss(),
     reactRouter(),
-    tsconfigPaths(),
+    serverAdapter({
+      adapter,
+      entry: './server/index.ts',
+      getLoadContext
+    }),
+    tsconfigPaths()
   ],
+  ssr: {
+    resolve: {
+      externalConditions: ['workerd', 'worker']
+    }
+  }
 }));
