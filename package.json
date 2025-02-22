@@ -6,8 +6,7 @@
     "build": "react-router build",
     "deploy": "npm run build && wrangler deploy",
     "dev": "react-router dev",
-    "start:dev": "wrangler dev --env dev",
-    "start:prod": "wrangler dev --env prod",
+    "start": "wrangler dev",
     "typecheck": "react-router typegen && tsc -b"
   },
   "dependencies": {
